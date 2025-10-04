@@ -9,20 +9,29 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: '17', cache: maven }
+
+      # ejecutar tests del módulo y generar jacoco desde la raíz
       - name: Test + coverage
-        run: mvn -q -B test jacoco:report
+        run: mvn -q -B -pl api-tests-java -am test org.jacoco:jacoco-maven-plugin:0.8.12:report
+
       - name: Allure results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: allure-results
           path: api-tests-java/target/allure-results
+<<<<<<< HEAD
           if-no-files-found: ignore         # <- evita el fallo
+=======
+          if-no-files-found: ignore
+
+>>>>>>> 8fe654e (ci: run jacoco on module and ignore missing allure)
       - name: Coverage badge
         uses: cicirello/jacoco-badge-generator@v4
         with:
           jacoco-csv-report-path: api-tests-java/target/site/jacoco/jacoco.csv
           badges-directory: api-tests-java/badges
+
       - name: Commit badge
         if: github.ref == 'refs/heads/main'
         run: |
