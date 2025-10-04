@@ -1,6 +1,7 @@
 name: ci
 on: [push, pull_request]
 permissions: { contents: write }
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -13,7 +14,10 @@ jobs:
       - name: Allure results
         if: always()
         uses: actions/upload-artifact@v4
-        with: { name: allure-results, path: api-tests-java/target/allure-results }
+        with:
+          name: allure-results
+          path: api-tests-java/target/allure-results
+          if-no-files-found: ignore         # <- evita el fallo
       - name: Coverage badge
         uses: cicirello/jacoco-badge-generator@v4
         with:
@@ -29,3 +33,4 @@ jobs:
             git commit -m "chore(ci): update coverage badges [skip ci]"
             git push
           fi
+
