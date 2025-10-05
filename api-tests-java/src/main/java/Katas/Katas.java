@@ -1,4 +1,4 @@
-package KatasTest;
+package Katas;
 import java.util.*;
 public class Katas {
   public static String reverse(String s){ return new StringBuilder(s).reverse().toString(); }
