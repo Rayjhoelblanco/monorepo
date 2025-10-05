@@ -11,7 +11,15 @@ jobs:
         with: { distribution: temurin, java-version: '17', cache: maven }
 
       - name: Test + coverage
-        run: mvn -q -B -pl api-tests-java -am test org.jacoco:jacoco-maven-plugin:0.8.12:report
+        run: mvn -B -pl api-tests-java -am test org.jacoco:jacoco-maven-plugin:0.8.12:report
+
+      - name: Upload surefire reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: api-tests-java/target/surefire-reports
+          if-no-files-found: warn
 
       - name: Allure results
         if: always()
