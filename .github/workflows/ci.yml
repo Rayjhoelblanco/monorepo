@@ -22,7 +22,7 @@ jobs:
           if-no-files-found: ignore
 
       - name: Coverage badge
-        uses: cicirello/jacoco-badge-generator@v4
+        uses: cicirello/jacoco-badge-generator@v2
         with:
           jacoco-csv-report-path: api-tests-java/target/site/jacoco/jacoco.csv
           badges-directory: api-tests-java/badges
